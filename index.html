@@ -1,32 +1,238 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tarento Pizzaria - Cardápio</title>
+    <meta name="description" content="Cardápio da Tarento Pizzaria. Confira nossas pizzas, bebidas e promoções." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta property="og:title" content="Tarento Pizzaria - Cardápio" />
+    <meta property="og:description" content="Confira nosso cardápio com pizzas deliciosas e preços especiais." />
+    <meta property="og:type" content="website" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .menu-container img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .floating-buttons {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 1000;
+      }
+
+      .floating-buttons a {
+        display: block;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .floating-buttons a:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .floating-buttons a:active {
+        transform: scale(0.95);
+      }
+
+      .floating-buttons img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Modal */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        max-width: 320px;
+        margin: 16px;
+        text-align: center;
+        transform: scale(0.9);
+        transition: transform 0.2s ease;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-overlay.active .modal {
+        transform: scale(1);
+      }
+
+      .modal-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+      }
+
+      .modal p {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .modal-buttons {
+        display: flex;
+        gap: 12px;
+      }
+
+      .modal-btn {
+        flex: 1;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .modal-btn-cancel {
+        background: #e5e5e5;
+        color: #333;
+      }
+
+      .modal-btn-cancel:hover {
+        background: #d5d5d5;
+      }
+
+      .modal-btn-confirm {
+        background: #25D366;
+        color: #fff;
+      }
+
+      .modal-btn-confirm:hover {
+        background: #1fb855;
+      }
+    </style>
   </head>
   <body>
-    <div>
+    <main class="menu-container">
       <img
-        src="./assets/folheto-pizzaria_148x210mm_janeiro2025_01.jpg"
-        alt="cardapio1"
-        style="width: 100%"
+        src="./assets/folheto-pizzaria_148x210mm_janeiro2026.jpg"
+        alt="Cardápio Tarento Pizzaria - Página 1: Pizzas tradicionais"
+        width="148"
+        height="210"
+        loading="eager"
+        decoding="async"
       />
       <img
-        src="./assets/folheto-pizzaria_148x210mm_janeiro2025_02.jpg"
-        alt="cardapio2"
-        style="width: 100%"
+        src="./assets/folheto-pizzaria_148x210mm_janeiro20262.jpg"
+        alt="Cardápio Tarento Pizzaria - Página 2: Pizzas especiais"
+        width="148"
+        height="210"
+        loading="lazy"
+        decoding="async"
       />
       <img
-        src="./assets/folheto-pizzaria_148x210mm_janeiro2025_03.jpg"
-        alt="cardapio3"
-        style="width: 100%"
+        src="./assets/folheto-pizzaria_148x210mm_janeiro20263.jpg"
+        alt="Cardápio Tarento Pizzaria - Página 3: Pizzas doces e bebidas"
+        width="148"
+        height="210"
+        loading="lazy"
+        decoding="async"
       />
       <img
-        src="./assets/folheto-pizzaria_148x210mm_janeiro2025_04.jpg"
-        alt="cardapio4"
-        style="width: 100%"
+        src="./assets/folheto-pizzaria_148x210mm_janeiro20264.jpg"
+        alt="Cardápio Tarento Pizzaria - Página 4: Promoções e informações"
+        width="148"
+        height="210"
+        loading="lazy"
+        decoding="async"
       />
-      <br />
+    </main>
+
+    <nav class="floating-buttons" aria-label="Canais de pedido">
+      <a href="#" id="whatsapp-btn" aria-label="Pedir pelo WhatsApp">
+        <img src="./assets/whatsapp.png" alt="WhatsApp" />
+      </a>
+      <a href="https://www.ifood.com.br/delivery/osasco-sp/tarento-pizzaria-bandeiras/c283304b-a3a6-4b58-9bc1-518c0e721f40?utm_medium=share" target="_blank" rel="noopener noreferrer" aria-label="Pedir pelo iFood">
+        <img src="./assets/ifood.png" alt="iFood" />
+      </a>
+      <a href="https://oia.99app.com/dlp9/UF4rmn" target="_blank" rel="noopener noreferrer" aria-label="Pedir pelo 99Food">
+        <img src="./assets/99.png" alt="99Food" />
+      </a>
+    </nav>
+
+    <!-- WhatsApp Confirmation Modal -->
+    <div class="modal-overlay" id="modal">
+      <div class="modal">
+        <img src="./assets/whatsapp.png" alt="" class="modal-icon" />
+        <p>Os pedidos através do WhatsApp são exclusivamente para entregas dentro do condomínio São Cristovão.</p>
+        <div class="modal-buttons">
+          <button class="modal-btn modal-btn-cancel" id="modal-cancel">Cancelar</button>
+          <button class="modal-btn modal-btn-confirm" id="modal-confirm">Continuar</button>
+        </div>
+      </div>
     </div>
+
+    <script>
+      const whatsappUrl = 'https://wa.me/5511983331799';
+      const modal = document.getElementById('modal');
+      const whatsappBtn = document.getElementById('whatsapp-btn');
+      const cancelBtn = document.getElementById('modal-cancel');
+      const confirmBtn = document.getElementById('modal-confirm');
+
+      whatsappBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('active');
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+
+      confirmBtn.addEventListener('click', () => {
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        modal.classList.remove('active');
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    </script>
   </body>
 </html>
